@@ -1,19 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1E3A8A"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/locationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="halo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="28dp"
+        android:orientation="vertical"
+        android:text="Sodepur, Kolkata"
+        android:textColor="#FFFFFF"
+        android:textSize="50px"
+        android:padding="4dp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/temperatureTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationTextView"
+        android:layout_marginTop="49dp"
+        android:layout_centerHorizontal="true"
+        android:text=" 29°"
+        android:textColor="#FFFFFF"
+        android:textSize="88sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/weatherDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/temperatureTextView"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:text="Mostly sunny 18°/30° Air Quality: 293 - Poor"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/airQualityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weatherDescriptionTextView"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/hourlyForecastTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/airQualityTextView"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Now    2:00 PM    2:00 PM    2:00 PM    2:00 PM \n\n 29         29              29              29              29"
+
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/dailyForecastTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hourlyForecastTextView"
+        android:layout_marginTop="56dp"
+        android:padding="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="6 Feb Today 18° / 30°\n6 Feb Tomorrow 18° / 30°\n6 Feb Today 18° / 30°\n6 Feb Today 18° / 30°\n6 Feb Today 18° / 30°"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+</RelativeLayout>
