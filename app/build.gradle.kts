@@ -29,14 +29,13 @@ android {
 }
 
 dependencies {
-    val retrofitVersion = "2.11.0"
-
     implementation(libs.retrofit)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
