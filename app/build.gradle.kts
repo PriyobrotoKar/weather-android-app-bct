@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.location)
     implementation(libs.retrofit)
     implementation(libs.appcompat)
     implementation(libs.material)
