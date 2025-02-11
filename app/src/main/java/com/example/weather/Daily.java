@@ -17,6 +17,9 @@ public class Daily{
 	@SerializedName("weather_code")
 	private List<Integer> weatherCode;
 
+	@SerializedName("uv_index_max")
+	private List<Double> uvIndex;
+
 	public List<Object> getTemperature2mMax(){
 		return temperature2mMax;
 	}
@@ -31,5 +34,9 @@ public class Daily{
 
 	public List<Integer> getWeatherCode(){
 		return weatherCode;
+	}
+
+	public List<Double> getUvIndex() {
+		return uvIndex;
 	}
 }
