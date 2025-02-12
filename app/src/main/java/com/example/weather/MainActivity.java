@@ -1,15 +1,18 @@
 package com.example.weather;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
@@ -24,20 +27,19 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
-
+import java.nio.file.Watchable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.WeakHashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +47,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     private HourlyWeatherAdapter adapter;
     private DailyWeatherAdapter dailyWeatherAdapter;
@@ -64,8 +67,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(32, systemBars.top, 32, systemBars.bottom);
+//            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
             return insets;
+        });
+
+        ImageView logoutBtn = findViewById(R.id.logoutBtn);
+        mAuth = FirebaseAuth.getInstance();
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
         });
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -168,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                ImageView bgImageView = findViewById(R.id.bgImageView);
                 TextView tempTextView = findViewById(R.id.temperature);
 
                 recyclerView = findViewById(R.id.hourlyView);
@@ -179,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 String minTemp = data.getDaily().getTemperature2mMin().get(0).toString();
 
 
+                bgImageView.setImageResource(getWeatherCondition(weatherCode).getBg());
                 tempTextView.setText(temp+"°");
 
                 Calendar now = Calendar.getInstance();
@@ -263,6 +283,45 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("API", "API request failed: " + throwable.getMessage());
             }
         });
+    }
+
+
+
+     WeatherImage getWeatherCondition(int weatherCode){
+        int sunnyCode= 0;
+        List<Integer> cloudyCodes= Arrays.asList(1,2,3);
+        List<Integer> fogCodes= Arrays.asList(45,48);
+        List<Integer> rainCodes= Arrays.asList(51,53,55,56,57,61,63,65,66,67,80,81,82);
+        List<Integer> snowCodes= Arrays.asList(71, 73, 75,77,85, 86);
+        List<Integer> stormCodes= Arrays.asList(95,96, 99);
+
+
+        if(weatherCode == sunnyCode){
+            return new WeatherImage(R.drawable.bg_sunny, R.drawable.sun);
+        }
+
+        if(cloudyCodes.contains(weatherCode)){
+            return new WeatherImage(R.drawable.bg_cloudy, R.drawable.cloudy);
+        }
+
+        if(fogCodes.contains(weatherCode)){
+            return new WeatherImage(R.drawable.bg_fog, R.drawable.fog);
+        }
+
+        if(rainCodes.contains(weatherCode)){
+            return new WeatherImage(R.drawable.bg_rainfall,R.drawable.rainfall);
+        }
+
+        if(snowCodes.contains(weatherCode)){
+            return new WeatherImage(R.drawable.bg_snowfall, R.drawable.rainfall);
+        }
+
+        if(stormCodes.contains(weatherCode)){
+            return new WeatherImage(R.drawable.bg_thunderstorm, R.drawable.thunderstorm);
+        }
+
+
+        return null;
     }
 
     /**

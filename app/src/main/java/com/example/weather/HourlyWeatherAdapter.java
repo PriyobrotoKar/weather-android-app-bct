@@ -3,6 +3,7 @@ package com.example.weather;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +41,7 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
             e.printStackTrace();
         }
         holder.tempTextView.setText(hourlyWeather.getTemperature() + "°C");
-        holder.weatherCodeTextView.setText(String.valueOf(hourlyWeather.getWeatherCode()));
+        holder.weatherCodeImageView.setImageResource((new MainActivity()).getWeatherCondition(hourlyWeather.getWeatherCode()).getIcon());
     }
 
     @Override
@@ -49,13 +50,14 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView timeTextView, tempTextView, weatherCodeTextView;
+        TextView timeTextView, tempTextView;
+        ImageView weatherCodeImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
             tempTextView = itemView.findViewById(R.id.tempTextView);
-            weatherCodeTextView = itemView.findViewById(R.id.weatherCodeTextView);
+            weatherCodeImageView = itemView.findViewById(R.id.weatherCodeImageView);
         }
     }
 }

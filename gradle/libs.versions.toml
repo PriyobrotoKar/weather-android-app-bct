@@ -1,5 +1,7 @@
 [versions]
 agp = "8.3.2"
+firebaseBom = "33.9.0"
+gservices = "4.4.2"
 converterGson = "2.10.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,6 +15,8 @@ retrofitVersion = "2.11.0"
 
 [libraries]
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-auth = {module = "com.google.firebase:firebase-auth"}
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -25,4 +29,5 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+google-services = { id = "com.google.gms.google-services", version.ref = "gservices" }
 

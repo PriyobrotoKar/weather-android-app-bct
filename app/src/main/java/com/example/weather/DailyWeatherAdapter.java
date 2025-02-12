@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class DailyWeatherAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.dateTextView = convertView.findViewById(R.id.dateTextView);
             holder.dayTextView = convertView.findViewById(R.id.dayTextView);
-            holder.weatherCodeTextView = convertView.findViewById(R.id.weatherCodeTextView);
+            holder.weatherCodeImageView = convertView.findViewById(R.id.weatherCodeImageView);
             holder.minMaxTextView = convertView.findViewById(R.id.minMaxTextView);
             convertView.setTag(holder);
         } else {
@@ -68,13 +69,14 @@ public class DailyWeatherAdapter extends BaseAdapter {
         }
 
         holder.dayTextView.setText(dailyWeather.getDay());
-        holder.weatherCodeTextView.setText(String.valueOf(dailyWeather.getWeatherCode()));
-        holder.minMaxTextView.setText(dailyWeather.getMinTemp() + " / " + dailyWeather.getMaxTemp());
+        holder.weatherCodeImageView.setImageResource((new MainActivity()).getWeatherCondition(dailyWeather.getWeatherCode()).getIcon());
+        holder.minMaxTextView.setText(dailyWeather.getMinTemp() + "° / " + dailyWeather.getMaxTemp()+"°");
 
         return convertView;
     }
 
     static class ViewHolder {
-        TextView dateTextView, dayTextView, weatherCodeTextView, minMaxTextView;
+        TextView dateTextView, dayTextView,  minMaxTextView;
+        ImageView weatherCodeImageView;
     }
 }
