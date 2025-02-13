@@ -11,14 +11,17 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="36dp"
         >
 
 
         <ImageView
             android:id="@+id/bgImageView"
-            android:layout_marginTop="-300dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_sunny"
             />
 
         <LinearLayout
@@ -66,41 +69,41 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <!-- Horizontal Forecast (RecyclerView) -->
 
             <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:paddingVertical="60dp">
                 <!-- Temperature -->
                 <TextView
                     android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
                     android:text="29°"
                     android:textColor="#FFFFFF"
                     android:textSize="80sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="1dp"
-                    />
+                    android:textStyle="bold" />
 
                 <!-- Weather Condition -->
                 <TextView
                     android:id="@+id/weather_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mostly sunny 18° / 30° Air Quality: 293 - Poor"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="25dp"/>
+                    android:layout_marginBottom="25dp"
+                    android:text="Mostly sunny 18° / 30°"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
             </LinearLayout>
-            <!-- Horizontal Forecast (RecyclerView) -->
 
             <androidx.recyclerview.widget.RecyclerView
+                android:background="@drawable/layout_round_shape"
                 android:id="@+id/hourlyView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,6 +111,7 @@
                 />
 
             <ListView
+                android:background="@drawable/layout_round_shape"
                 android:id="@+id/dailyView"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -131,6 +135,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:background="@drawable/layout_round_small"
                         android:layout_height="wrap_content"
                         >
                         <ImageView
@@ -143,14 +148,14 @@
                             android:layout_height="wrap_content"
                             android:text="UV"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
                             android:id="@+id/uvTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="7"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -163,6 +168,7 @@
                         android:orientation="vertical"
                         android:layout_marginHorizontal="8dp"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/layout_round_small"
                         >
                         <ImageView
                             android:layout_width="wrap_content"
@@ -174,14 +180,14 @@
                             android:layout_height="wrap_content"
                             android:text="Feels like"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
                             android:id="@+id/feelsLikeTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -190,6 +196,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:background="@drawable/layout_round_small"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
@@ -204,14 +211,14 @@
                             android:layout_height="wrap_content"
                             android:text="Humidity"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
                             android:id="@+id/humidityTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="46%"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -230,6 +237,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/layout_round_small"
                         >
                         <ImageView
                             android:layout_width="wrap_content"
@@ -241,14 +249,14 @@
                             android:layout_height="wrap_content"
                             android:text="Wind"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
                             android:id="@+id/windTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2kmph"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -261,6 +269,7 @@
                         android:orientation="vertical"
                         android:layout_marginHorizontal="8dp"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/layout_round_small"
                         >
                         <ImageView
                             android:layout_width="wrap_content"
@@ -272,14 +281,14 @@
                             android:layout_height="wrap_content"
                             android:text="Air Pressure"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
                             android:id="@+id/pressureTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1012"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -288,6 +297,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:background="@drawable/layout_round_small"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
@@ -302,14 +312,14 @@
                             android:layout_height="wrap_content"
                             android:text="Precipitation"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
                             android:id="@+id/precipitationTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1mm"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />

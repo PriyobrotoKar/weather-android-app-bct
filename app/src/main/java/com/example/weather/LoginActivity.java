@@ -38,12 +38,22 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user != null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailTextView.getText().toString();
                 String password = passwordTextView.getText().toString();
+
 
                 if(email.isEmpty() || password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();

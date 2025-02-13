@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_REQUEST = 1;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private String apiUrl = "https://api.open-meteo.com/v1/";
+    private String locationApiUrl = "https://api.openweathermap.org/geo/1.0/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
+//            v.setPadding(0, 0, 0, systemBars.bottom);
             return insets;
         });
 
@@ -160,14 +161,45 @@ public class MainActivity extends AppCompatActivity {
      * Fetches weather data based on retrieved coordinates.
      */
     private void fetchWeather(Coors coordinates) {
-        Retrofit retrofit = new Retrofit.Builder()
+        Retrofit weatherService = new Retrofit.Builder()
                 .baseUrl(apiUrl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
-        ApiInterface weather = retrofit.create(ApiInterface.class);
+        Retrofit locationService = new Retrofit.Builder()
+                .baseUrl(locationApiUrl)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiInterface weather = weatherService.create(ApiInterface.class);
+        ApiInterface location = locationService.create(ApiInterface.class);
 
         Log.d("COORS", coordinates.getLat());
         Log.d("COORS", coordinates.getLon());
+
+        location.getAddress(coordinates.getLat(),coordinates.getLon(), 1,"3c2d9d72189fa05d23b25802ad747d79").enqueue(new Callback<List<Address>>() {
+            @Override
+            public void onResponse(Call<List<Address>> call, retrofit2.Response<List<Address>> response) {
+                Address data = response.body().get(0);
+                if (!response.isSuccessful() || data == null) {
+                    Log.e("LOCATION API", "Error while fetching API");
+                    return;
+                }
+
+                String city = data.getName();
+                String state = data.getState();
+
+                TextView locationTextView = findViewById(R.id.location);
+
+                locationTextView.setText(city + ", "+ state);
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Address>> call, Throwable throwable) {
+                Log.e("LOCATION API", "API request failed: " + throwable.getMessage());
+            }
+        });
 
         weather.getWeather(
                 coordinates.getLat(),
@@ -188,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ImageView bgImageView = findViewById(R.id.bgImageView);
                 TextView tempTextView = findViewById(R.id.temperature);
+                TextView weatherConditionTextView = findViewById(R.id.weather_condition);
 
                 recyclerView = findViewById(R.id.hourlyView);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL,false));
@@ -200,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
                 bgImageView.setImageResource(getWeatherCondition(weatherCode).getBg());
                 tempTextView.setText(temp+"°");
+                weatherConditionTextView.setText(getWeatherCondition(weatherCode).getCondition()+" "+minTemp+"° / "+maxTemp+"°");
 
                 Calendar now = Calendar.getInstance();
                 Calendar futureTime = (Calendar) now.clone();
@@ -260,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
                  TextView precipitationTextView = findViewById(R.id.precipitationTextView);
 
                  uvTextView.setText(String.valueOf(data.getDaily().getUvIndex().get(0)));
-                 feelsLikeTextView.setText(String.valueOf(data.getCurrent().getFeelsLike()));
+                 feelsLikeTextView.setText(String.valueOf(data.getCurrent().getFeelsLike())+"°");
                  humidityTextView.setText(String.valueOf(data.getCurrent().getRelativeHumidity())+"%");
                  windTextView.setText(String.valueOf(data.getCurrent().getWindSpeed())+" kmph");
                  pressureTextView.setText(String.valueOf(data.getCurrent().getPressure())+" hPa");
@@ -297,27 +331,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(weatherCode == sunnyCode){
-            return new WeatherImage(R.drawable.bg_sunny, R.drawable.sun);
+            return new WeatherImage(R.drawable.bg_sunny, R.drawable.sun, "Mostly sunny");
         }
 
         if(cloudyCodes.contains(weatherCode)){
-            return new WeatherImage(R.drawable.bg_cloudy, R.drawable.cloudy);
+            return new WeatherImage(R.drawable.bg_cloudy, R.drawable.cloudy, "Overcast");
         }
 
         if(fogCodes.contains(weatherCode)){
-            return new WeatherImage(R.drawable.bg_fog, R.drawable.fog);
+            return new WeatherImage(R.drawable.bg_fog, R.drawable.fog, "Fog");
         }
 
         if(rainCodes.contains(weatherCode)){
-            return new WeatherImage(R.drawable.bg_rainfall,R.drawable.rainfall);
+            return new WeatherImage(R.drawable.bg_rainfall,R.drawable.rainfall, "Rain showers");
         }
 
         if(snowCodes.contains(weatherCode)){
-            return new WeatherImage(R.drawable.bg_snowfall, R.drawable.rainfall);
+            return new WeatherImage(R.drawable.bg_snowfall, R.drawable.rainfall, "Snow showers");
         }
 
         if(stormCodes.contains(weatherCode)){
-            return new WeatherImage(R.drawable.bg_thunderstorm, R.drawable.thunderstorm);
+            return new WeatherImage(R.drawable.bg_thunderstorm, R.drawable.thunderstorm, "Thunderstorm");
         }
 
 
