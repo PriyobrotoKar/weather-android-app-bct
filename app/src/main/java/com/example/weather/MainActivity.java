@@ -8,6 +8,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView dailyWeatherView;
     private List<HourlyWeather> hourlyWeatherList;
     private List<DailyWeather> dailyWeatherList;
+
+    private Boolean isLocationFetched=false, isWeatherFetched=false;
 
 
     private static final int LOCATION_PERMISSION_REQUEST = 1;
@@ -184,6 +188,18 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                isLocationFetched=true;
+
+
+                View loader = findViewById(R.id.loader);
+
+                if (loader != null && isWeatherFetched) {
+                    ViewGroup parent = (ViewGroup) loader.getParent();
+                    if (parent != null) {
+                        parent.removeView(loader);
+                    }
+                }
+
                 String city = data.getName();
                 String state = data.getState();
 
@@ -216,6 +232,17 @@ public class MainActivity extends AppCompatActivity {
                 if (!response.isSuccessful() || data == null) {
                     Log.e("API", "Error while fetching API");
                     return;
+                }
+
+                isWeatherFetched=true;
+
+                View loader = findViewById(R.id.loader);
+
+                if (loader != null && isLocationFetched) {
+                    ViewGroup parent = (ViewGroup) loader.getParent();
+                    if (parent != null) {
+                        parent.removeView(loader);
+                    }
                 }
 
                 ImageView bgImageView = findViewById(R.id.bgImageView);

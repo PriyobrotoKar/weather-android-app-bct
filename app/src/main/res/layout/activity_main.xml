@@ -147,6 +147,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="UV"
+                            android:textSize="12sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/material_dynamic_neutral90"
                             />
@@ -155,7 +156,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="7"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -179,6 +180,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Feels like"
+                            android:textSize="12sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/material_dynamic_neutral90"
                             />
@@ -187,7 +189,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -211,6 +213,7 @@
                             android:layout_height="wrap_content"
                             android:text="Humidity"
                             android:layout_marginTop="8dp"
+                            android:textSize="12sp"
                             android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
@@ -218,7 +221,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="46%"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -248,6 +251,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Wind"
+                            android:textSize="12sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/material_dynamic_neutral90"
                             />
@@ -256,7 +260,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2kmph"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -281,6 +285,7 @@
                             android:layout_height="wrap_content"
                             android:text="Air Pressure"
                             android:layout_marginTop="8dp"
+                            android:textSize="12sp"
                             android:textColor="@color/material_dynamic_neutral90"
                             />
                         <TextView
@@ -288,7 +293,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1012"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -311,6 +316,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Precipitation"
+                            android:textSize="12sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/material_dynamic_neutral90"
                             />
@@ -319,7 +325,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1mm"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/white"
                             />
@@ -330,11 +336,13 @@
 
         </LinearLayout>
 
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@color/white"-->
-<!--            />-->
+        <View
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1A3191"
+            >
+        </View>
 
     </FrameLayout>
 
